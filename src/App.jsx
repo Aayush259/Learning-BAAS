@@ -1,6 +1,9 @@
 import React from 'react';
+import conf from './app/conf/conf.js';
 
 export default function App() {
+
+  console.log(conf);
 
   return (
     <>
