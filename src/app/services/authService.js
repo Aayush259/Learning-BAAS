@@ -53,7 +53,13 @@ export class AuthService {
         try {
             return this.account.get();
         } catch (error) {
-            throw error;
+            // If the error due to the user not logged in, return null else throw error.
+            // if (error.code === 401) {
+            //     return null;
+            // } else {
+            //     throw error;
+            // }
+            console.log("Appwrite service error");
         }
     }
 
