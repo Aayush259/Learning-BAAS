@@ -2,35 +2,24 @@ import conf from '../conf/conf.js';
 import { Client, Account, ID } from 'appwrite';
 
 export class AuthService {
-    // Creating new client.
+    // New client created.
     client = new Client();
-
-    // Declaring account.
     account;
 
     constructor() {
-        // Initializing client with endpoint and project.
         this.client
             .setEndpoint(conf.API_ENDPOINT)
             .setProject(conf.PROJECT_ID);
 
-        // Initializing account.
         this.account = new Account(this.client);
-    }
+    };
 
-    // Function to create new user accounts.
+    // Service to create new account.
     async createAccount({ email, password, name }) {
         try {
-            const userAccount = await this.account.create(
-                ID.unique(),
-                email,
-                password,
-                name
-            );
-
-            // If user account successfully created, then login that user.
+            const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                this.login(email, password);
+                return this.login({ email, password });
             } else {
                 return userAccount;
             }
@@ -39,7 +28,7 @@ export class AuthService {
         }
     }
 
-    // Function to login the user.
+    // Service to login user.
     async login({ email, password }) {
         try {
             return await this.account.createEmailPasswordSession(email, password);
@@ -48,31 +37,27 @@ export class AuthService {
         }
     }
 
-    // Function to check if the user is already logged in or not.
-    async getUser() {
+    // Service to get current user.
+    async getCurrentUser() {
         try {
-            return this.account.get();
+            return await this.account.get();
         } catch (error) {
-            // If the error due to the user not logged in, return null else throw error.
-            // if (error.code === 401) {
-            //     return null;
-            // } else {
-            //     throw error;
-            // }
-            console.log("Appwrite service error");
+            console.log("Appwrite service :: getCurrentUser :: error", error);
         }
+
+        return null;
     }
 
-    // Function to logout the user.
+    // Service to logout all sessions of current logined user.
     async logout() {
         try {
-            return this.account.deleteSessions();
+            await this.account.deleteSessions();
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: logout :: error", error);
         }
     }
 };
 
-const authService = new AuthService;
+const authService = new AuthService();
 
 export default authService;
