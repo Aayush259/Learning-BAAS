@@ -2,55 +2,53 @@ import conf from '../conf/conf.js';
 import { Client, Storage, ID } from 'appwrite';
 
 export class StorageService {
+    // New client created.
     client = new Client();
-    storage;
+    bucket;
 
     constructor() {
         this.client
-            .setEndpoint(conf.API_ENDPOINT)
-            .setProject(conf.PROJECT_ID);
-
-        this.storage = new Storage(this.client);
+           .setEndpoint(conf.API_ENDPOINT)
+           .setProject(conf.PROJECT_ID);
+        this.bucket = new Storage(this.client);
     }
 
-    // Method to upload file.
+    // Service to upload file.
     async uploadFile(file) {
         try {
-            return await this.storage.createFile(
+            return await this.bucket.createFile(
                 conf.BUCKET_ID,
                 ID.unique(),
-                file
+                file,
             )
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: uploadFile :: error", error);
+            return false;
         }
     }
 
-    // Method to delete file.
+    // Service to delete file.
     async deleteFile(fileId) {
         try {
-            await this.storage.deleteFile(
+            await this.bucket.deleteFile(
                 conf.BUCKET_ID,
-                fileId
-            );
+                fileId,
+            )
             return true;
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: deleteFile :: error", error);
+            return false;
         }
     }
 
-    // Method to get file preview.
-    async getFilePreview(fileId) {
-        try {
-            return this.storage.getFilePreview(
-                conf.BUCKET_ID,
-                fileId
-            )
-        } catch (error) {
-            throw error;
-        }
+    // Service to get file preview.
+    getFilePreview(fileId) {
+        return this.bucket.getFilePreview(
+            conf.BUCKET_ID,
+            fileId,
+        )
     }
-}
+};
 
 const storageService = new StorageService();
 
