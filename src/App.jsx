@@ -24,9 +24,11 @@ export default function App() {
 
   return !loading ? (
     <>
-      <h1 className="text-center m-10 text-3xl">Learning BAAS</h1>
+    <div className="bg-[#020187] text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
       <Header />
       <Footer />
+
+    </div>
     </>
   ) : (
     <div className="text-center">Loading...</div>
