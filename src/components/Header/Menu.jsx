@@ -18,7 +18,7 @@ export const MenuItem = ({
   children,
 }) => {
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative mx-8">
+    <div onClick={() => setActive(prevItem => prevItem === item ? null : item)} className="relative sm:mx-8">
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
@@ -27,19 +27,19 @@ export const MenuItem = ({
           initial={{ rotate: 0, y: 0 }}
           animate={active ? { rotate: 45, y: 10 } : { rotate: 0, y: 0 }}
           transition={transition}
-          className="w-10 h-1 bg-white block rounded"
+          className="w-8 sm:w-10 h-1 bg-white block rounded"
         />
         <motion.span
           initial={{ opacity: 1 }}
           animate={active ? { opacity: 0 } : { opacity: 1 }}
           transition={transition}
-          className="w-10 h-1 bg-white block rounded my-2"
+          className="w-8 sm:w-10 h-1 bg-white block rounded my-2"
         />
         <motion.span
           initial={{ rotate: 0, y: 0 }}
           animate={active ? { rotate: -45, y: -13 } : { rotate: 0, y: 0 }}
           transition={transition}
-          className="w-10 h-1 bg-white block rounded"
+          className="w-8 sm:w-10 h-1 bg-white block rounded"
         />
       </motion.p>
       {active !== null && (
