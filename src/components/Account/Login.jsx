@@ -34,17 +34,18 @@ export default function Login() {
             if (session) dispatch(login({ userData: session }));
 
             // Set loading false, and navigate home page.
-            navigate('/home');
+            navigate('home');
         } catch (error) {
             setError(error.message);
         }
         setLoading(false);
     };
 
-    return loading ? <Loader /> : (
+    return (
         <div
             className="min-h-[80vh] w-screen mx-auto my-4 flex items-center justify-center"
         >
+            {loading && <Loader />}
             <div className="bg-[#cbd5e11a] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
                 <h2 className="text-xl font-semibold flex items-center justify-center w-fit gap-2">
                     <LoginIcon />

@@ -35,8 +35,8 @@ export default function SignUp() {
                 const userData = await authService.getCurrentUser();
                 if (userData) dispatch(login);
 
-                // Navigate to home page.
-                navigate('/home');
+                // Refresh the page.
+                window.location.reload();
             };
         } catch (error) {
             setError(error.message);
@@ -45,10 +45,11 @@ export default function SignUp() {
         setLoading(false);
     };
 
-    return loading ? <Loader /> : (
+    return (
         <div
             className="min-h-[80vh] w-screen mx-auto my-4 flex items-center justify-center"
         >
+            {loading && <Loader />}
             <div className="bg-[#cbd5e11a] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
                 <h2 className="text-xl font-semibold flex items-center justify-center w-fit gap-2">
                     <LoginIcon />
