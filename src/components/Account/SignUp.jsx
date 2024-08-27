@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import authService from '../../app/services/authService.js';
 import { login } from '../../app/store/features/authSlice.js';
@@ -18,7 +18,7 @@ export default function SignUp() {
     const [loading, setLoading] = useState(false);
 
     // Getting register and handleSubmit function from useForm.
-    const [register, handleSubmit] = useForm();
+    const { register, handleSubmit } = useForm();
 
     // Function to handle signup.
     const handleSignUp = async (data) => {
@@ -33,7 +33,7 @@ export default function SignUp() {
             // If account created, the get current user and update store.
             if (userData) {
                 const userData = await authService.getCurrentUser();
-                if (userData) dispatch(login(userData));
+                if (userData) dispatch(login);
 
                 // Navigate to home page.
                 navigate('/home');

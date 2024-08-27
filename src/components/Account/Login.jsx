@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { login } from '../../app/store/features/authSlice.js';
 import authService from '../../app/services/authService.js';
@@ -18,7 +18,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
 
     // Getting register and handleSubmit function from useForm.
-    const [register, handleSubmit] = useForm();
+    const { register, handleSubmit } = useForm();
 
     // Function to handle login.
     const handleLogin = async (data) => {
