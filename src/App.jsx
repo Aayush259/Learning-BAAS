@@ -7,6 +7,7 @@ import { AuthLayout, Footer, Header } from './components/index.js';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
+import LandingPage from './pages/LandingPage.jsx';
 
 export default function App() {
 
@@ -33,28 +34,32 @@ export default function App() {
           <Header />
           <Routes>
             <Route path='/' element={
-              <AuthLayout>
-                <HomePage />
+              <AuthLayout authentication={false}>
+                <LandingPage />
               </AuthLayout>
-            } />
+            }
+            />
 
             <Route path='/home' element={
               <AuthLayout>
                 <HomePage />
               </AuthLayout>
-            } />
+            }
+            />
 
             <Route path='/login' element={
               <AuthLayout authentication={false}>
                 <LoginPage />
               </AuthLayout>
-            } />
+            }
+            />
 
             <Route path='/signup' element={
               <AuthLayout authentication={false}>
                 <SignUpPage />
               </AuthLayout>
-            } />
+            }
+            />
 
           </Routes>
         </Router>
