@@ -29,7 +29,7 @@ export default function App() {
 
   return !loading ? (
     <>
-      <div className="bg-[#020187] text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
+      <div className="bg-blue-600 text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
         <Router>
           <Header />
           <Routes>
