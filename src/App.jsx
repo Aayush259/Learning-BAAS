@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import authService from './app/services/authService.js';
 import { login, logout } from './app/store/features/authSlice.js';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { AuthLayout, Footer, Header } from './components/index.js';
+import { AuthLayout, Footer, Header, Loader } from './components/index.js';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
@@ -29,7 +29,7 @@ export default function App() {
 
   return !loading ? (
     <>
-      <div className="bg-blue-600 text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
+      <div className="bg-black text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
         <Router>
           <Header />
           <Routes>
@@ -67,7 +67,5 @@ export default function App() {
 
       </div>
     </>
-  ) : (
-    <div className="text-center">Loading...</div>
-  );
+  ) : <Loader />;
 };
