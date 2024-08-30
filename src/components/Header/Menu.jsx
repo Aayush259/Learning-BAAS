@@ -84,11 +84,12 @@ export const Menu = ({
   );
 };
 
-export const HoveredLink = ({ children, link }) => {
+export const HoveredLink = ({ children, link, ...rest }) => {
   return (
     <Link
       to={link}
       className="text-neutral-700 dark:text-neutral-200 w-full hover:bg-white hover:text-black duration-500 rounded-sm py-1 px-2"
+      {...rest}
     >
       {children}
     </Link>

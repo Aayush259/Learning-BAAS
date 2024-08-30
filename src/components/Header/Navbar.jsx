@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HoveredLink, Menu, MenuItem } from './Menu.jsx';
+import authService from '../../app/services/authService.js';
 
 export default function Navbar() {
 
@@ -10,18 +11,29 @@ export default function Navbar() {
   // State to track the active menu item.
   const [active, setActive] = useState(null);
 
+  // Function to handle logout.
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await authService.logout();
+      window.location.reload();
+    } catch (error) {
+      alert("Failed to logout");
+    }
+  };
+
   // Function to get nav link object.
-  const getNavLink = (name, slug, active) => ({
-    name, slug, active,
-  })
+  const getNavLink = (name, slug, active, onClick = null) => ({
+    name, slug, active, onClick
+  });
 
   // Array of nav items.
   const navItems = [
     getNavLink('Home', '/', true),
     getNavLink('Login', '/login', !authStatus),
     getNavLink('Sign Up', '/signup', !authStatus),
-    getNavLink('Logout', '/logout', authStatus),
     getNavLink('Posts', '/all-posts', authStatus),
+    getNavLink('Logout', '/logout', authStatus, handleLogout),
   ];
 
   return (
@@ -37,6 +49,7 @@ export default function Navbar() {
                   <HoveredLink
                     key={item.name}
                     link={item.slug}
+                    onClick={item.onClick}
                   >
                     {item.name}
                   </HoveredLink>
