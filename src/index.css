@@ -5,3 +5,15 @@
 body {
     overflow-x:hidden;
 }
+
+::-webkit-scrollbar {
+    @apply w-1;
+}
+
+::-webkit-scrollbar-track {
+    @apply w-0 overflow-visible bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-800 rounded-lg hover:bg-slate-500 transition-all duration-200;
+}
