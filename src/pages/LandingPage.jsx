@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function LandingPage() {
     return (
         <div
-            className="bg-blue-600 absolute top-0 left-0 w-screen h-screen flex items-center justify-center"
+            className="absolute top-0 left-0 w-screen h-screen flex items-center justify-center"
         >
             <section className="flex-grow flex items-center justify-center text-white">
                 <div className="text-center px-4 py-8">
