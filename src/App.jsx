@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 export default function App() {
 
@@ -41,7 +42,7 @@ export default function App() {
             />
 
             <Route path='/home' element={
-              <AuthLayout>
+              <AuthLayout authentication={true}>
                 <HomePage />
               </AuthLayout>
             }
@@ -60,6 +61,12 @@ export default function App() {
               </AuthLayout>
             }
             />
+
+            <Route path='/profile' element={
+              <AuthLayout authentication={true}>
+                <ProfilePage />
+              </AuthLayout>
+            } />
 
           </Routes>
         </Router>

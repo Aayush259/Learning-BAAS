@@ -32,7 +32,7 @@ export default function Navbar() {
     getNavLink('Home', '/', true),
     getNavLink('Login', '/login', !authStatus),
     getNavLink('Sign Up', '/signup', !authStatus),
-    getNavLink('Posts', '/all-posts', authStatus),
+    getNavLink('Profile', '/profile', authStatus),
     getNavLink('Logout', '/logout', authStatus, handleLogout),
   ];
 
