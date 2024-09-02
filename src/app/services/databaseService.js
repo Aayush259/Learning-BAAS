@@ -29,7 +29,7 @@ export class DatabaseService {
                 }
             );
         } catch (error) {
-            console.log("Appwrite service :: createPost :: error", error);
+            throw error;
         }
     }
 
@@ -91,6 +91,25 @@ export class DatabaseService {
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
             return false;
+        }
+    }
+
+    // Service to check if slug already exists.
+    async checkSlugExists(slug) {
+        try {
+            // Query to find post with given slug.
+            const queries = [Query.equal('userId', slug)];
+
+            // Get all posts with given slug.
+            const posts = await this.databases.listDocuments(
+                conf.DATABASE_ID,
+                conf.COLLECTION_ID,
+                queries,
+            );
+
+            return posts.total;
+        } catch (error) {
+            throw error;
         }
     }
 }
