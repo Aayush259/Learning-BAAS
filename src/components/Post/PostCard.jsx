@@ -21,6 +21,9 @@ export default function PostCard({ post }) {
     const deletePost = async (e) => {
         e.target.disable = true;
         try {
+            if (post.featuredImage) {
+                await storageService.deleteFile(post.featuredImage);
+            }
             await databaseService.deletePost(post.$id);
         } catch (error) {
             console.log(error);
