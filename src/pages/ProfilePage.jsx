@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import AddIcon from '@mui/icons-material/Add';
+import { Button, CreatePost, ProfilePost } from '../components/index.js';
 
 export default function ProfilePage() {
 
     // Getting user data from store.
     const userData = useSelector(state => state.auth.userData);
+
+    // State  to handle create post window.
+    const [createPost, setCreatePost] = useState(false);
 
     // Function to get greeting based on time.
     const getGreeting = () => {
@@ -24,12 +29,25 @@ export default function ProfilePage() {
     return (
         <div className="w-screen max-h-[80vh] overflow-y-auto overflow-x-hidden mx-auto py-10">
             <div
-                className="w-[800px] max-w-[90%] mx-auto"
+                className="w-[1100px] max-w-[90%] mx-auto"
             >
                 <div className="text-3xl">
                     {getGreeting()}
                 </div>
             </div>
+
+            <div className="relative min-h-[60vh]">
+                <ProfilePost userId={userData.$id} />
+            </div>
+
+            {createPost && <CreatePost setCreatePost={setCreatePost} />}
+
+            <Button
+                className={`!h-10 !w-10 flex items-center justify-center !rounded-full scale-150 absolute bottom-10 right-10 hover:rotate-[130deg] z-50 ${createPost ? "hidden" : ""}`}
+                onClick={() => setCreatePost(true)}
+            >
+                <AddIcon />
+            </Button>
         </div>
     );
 };
