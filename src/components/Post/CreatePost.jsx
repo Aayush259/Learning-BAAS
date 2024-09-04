@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
 import storageService from '../../app/services/storageService.js';
 import databaseService from '../../app/services/databaseService.js';
@@ -105,7 +106,11 @@ export default function CreatePost({ setCreatePost }) {
             className="absolute top-0 left-0 min-h-screen w-screen mx-auto flex items-center justify-center bg-black bg-opacity-25 z-[60]"
         >
             {isSubmitting && <Loader />}
-            <div className="bg-[#0f2138] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
+            <motion.div
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.5 }}
+                className="bg-[#0f2138] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
 
                 <Button
                     className={'w-fit p-0 flex items-center justify-center ml-auto hover:bg-transparent hover:text-slate-500'}
@@ -200,7 +205,7 @@ export default function CreatePost({ setCreatePost }) {
                     </Button>
 
                 </form>
-            </div>
+            </motion.div>
         </div>
     );
 };
