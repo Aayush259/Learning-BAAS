@@ -97,7 +97,6 @@ export class DatabaseService {
             return await this.databases.listDocuments(
                 conf.DATABASE_ID,
                 conf.COLLECTION_ID,
-                [Query.equal('status', 'active')],
             )
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
