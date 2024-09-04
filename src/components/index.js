@@ -9,6 +9,8 @@ import AuthLayout from './AuthLayout.jsx';
 import Login from './Account/Login.jsx';
 import SignUp from './Account/SignUp.jsx';
 import CreatePost from './Post/CreatePost.jsx';
+import ProfilePost from './Post/ProfilePost.jsx';
+import PostCard from './Post/PostCard.jsx';
 
 export {
     Loader,
@@ -22,4 +24,6 @@ export {
     Login,
     SignUp,
     CreatePost,
+    ProfilePost,
+    PostCard,
 };
