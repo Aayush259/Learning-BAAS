@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -53,51 +53,51 @@ export default function CreatePost({ setCreatePost }) {
     const handleSlug = useCallback(async (e) => {
         let slug = e.target.value;
 
-        if (!(slug && typeof slug === 'string')) return "";
-
         slug = slug
             .trim()
             .toLowerCase()
             .replace(/[^a-zA-Z\d\s]+/g, "-")
             .replace(/\s/g, "-");
-
-        try {
-            const matchedSlugCount = await databaseService.checkSlugExists(slug);
-
-            if (matchedSlugCount > 0) {
-                slug = `${slug}-${matchedSlugCount}`;
-            }
-        } catch (error) {
-            console.log(error);
-        }
         setSlug(slug);
     }, []);
 
     const handlePostSubmit = async (data) => {
 
-        let uploadedImageFile = null;
+        let userPostCount = 0;
 
+        // Getting total post count of user.
         try {
-            uploadedImageFile = await storageService.uploadFile(data.featuredImage[0]);
+            userPostCount = await databaseService.getUserPostCount(data.title);
         } catch (error) {
             console.log(error);
         }
 
-        if (uploadedImageFile) {
-            try {
-                const featuredImageId = uploadedImageFile.$id;
-                data.featuredImage = featuredImageId;
-                const post = await databaseService.createPost({
-                    ...data,
-                    slug: slug,
-                    userId: userData.$id,
-                    status: 'active',
-                });
+        // Creating final unique slug for post.
+        const finalSlug = `${slug}-${userPostCount}`;
+        let uploadedImageFile = null;
 
-                if (post) navigate(`/post/${post.$id}`);
+        // If user has selected any image, then upload it.
+        if (data.featuredImage[0]) {
+            try {
+                uploadedImageFile = await storageService.uploadFile(data.featuredImage[0]);
             } catch (error) {
                 console.log(error);
             }
+        }
+
+        // Upload post.
+        try {
+            const featuredImageId = uploadedImageFile?.$id;
+            data.featuredImage = featuredImageId;
+            const post = await databaseService.createPost({
+                ...data,
+                slug: finalSlug,
+                userId: userData.$id,
+            });
+
+            if (post) navigate(`/post/${post.$id}`);
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -109,7 +109,6 @@ export default function CreatePost({ setCreatePost }) {
             <motion.div
                 initial={{ scale: 0.5 }}
                 animate={{ scale: 1 }}
-                exit={{ scale: 0.5 }}
                 className="bg-[#0f2138] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
 
                 <Button
