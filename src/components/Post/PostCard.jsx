@@ -34,7 +34,7 @@ export default function PostCard({ post }) {
         <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="m-4 rounded-xl overflow-hidden w-72 bg-black border border-[#cbd5e11a] cursor-pointer select-none"
+            className="m-4 rounded-xl overflow-hidden w-72 !bg-black border border-[#cbd5e11a] cursor-pointer select-none z-30"
         >
 
             {
