@@ -14,7 +14,7 @@ export class DatabaseService {
     }
 
     // Service to create new post.
-    async createPost({ title, slug, content, featuredImage, status, userId }) {
+    async createPost({ title, slug, content, featuredImage, userId }) {
         try {
             return await this.databases.createDocument(
                 conf.DATABASE_ID,
@@ -24,7 +24,6 @@ export class DatabaseService {
                     title,
                     content,
                     featuredImage,
-                    status,
                     userId,
                 }
             );
@@ -34,7 +33,7 @@ export class DatabaseService {
     }
 
     // Service to update post.
-    async updatePost(slug, { title, content, featuredImage, status }) {
+    async updatePost(slug, { title, content, featuredImage }) {
         try {
             return await this.databases.updateDocument(
                 conf.DATABASE_ID,
@@ -44,7 +43,6 @@ export class DatabaseService {
                     title,
                     content,
                     featuredImage,
-                    status,
                 }
             )
         } catch (error) {
@@ -80,13 +78,26 @@ export class DatabaseService {
         }
     }
 
-    // Service to get all active posts.
-    async getPosts(queries = [Query.equal('status', 'active')]) {
+    // Service to get all posts of a user.
+    async getUserPosts(userId) {
         try {
             return await this.databases.listDocuments(
                 conf.DATABASE_ID,
                 conf.COLLECTION_ID,
-                queries,
+                [Query.equal('userId', userId)]
+            )
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // Service to get all active posts.
+    async getPosts() {
+        try {
+            return await this.databases.listDocuments(
+                conf.DATABASE_ID,
+                conf.COLLECTION_ID,
+                [Query.equal('status', 'active')],
             )
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
@@ -94,17 +105,14 @@ export class DatabaseService {
         }
     }
 
-    // Service to check if slug already exists.
-    async checkSlugExists(slug) {
+    // Service to get count of all user's posts.
+    async getUserPostCount(title) {
         try {
-            // Query to find post with given slug.
-            const queries = [Query.equal('userId', slug)];
-
-            // Get all posts with given slug.
+            // Get all posts with given title.
             const posts = await this.databases.listDocuments(
                 conf.DATABASE_ID,
                 conf.COLLECTION_ID,
-                queries,
+                [Query.equal('title', title)],
             );
 
             return posts.total;
