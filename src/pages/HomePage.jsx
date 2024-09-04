@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import databaseService from '../app/services/databaseService';
 import { Loader, PostCard } from '../components/index.js';
+import { addPosts, clearAllPostsFromStore } from '../app/store/features/homePosts.js';
 
-export default function HomePage() {
+function HomePage() {
+
+    const homePosts = useSelector(state => state.homePosts.posts);
+
+    const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         databaseService.getPosts()
-            .then(res => setPosts(res.documents))
+            .then(res => dispatch(addPosts(res.documents)))
             .catch(err => console.log(err))
             .finally(() => setLoading(false));
+
+        return () => {
+            dispatch(clearAllPostsFromStore());
+        }
     }, []);
 
 
@@ -21,11 +29,13 @@ export default function HomePage() {
             {
                 loading && <Loader containerClasses="max-h-full" />
             }
+
+            
             <div
                 className="w-[1100px] max-w-[90%] mx-auto flex flex-row items-start justify-start gap-3 flex-wrap"
             >
                 {
-                    posts?.map((post) => (
+                    homePosts?.map((post) => (
                         <PostCard key={post.$id} post={post} />
                     ))
                 }
@@ -33,3 +43,5 @@ export default function HomePage() {
         </div>
     );
 };
+
+export default React.memo(HomePage);
