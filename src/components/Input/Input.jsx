@@ -1,10 +1,13 @@
 import React, { useId } from 'react';
+import { ErrorMessage } from '../index.js';
 
 const Input = ({
     label,
     name,
     type = 'text',
+    labelclasses = '',
     className = '',
+    error,
     ...rest
 }, ref) => {
 
@@ -13,16 +16,23 @@ const Input = ({
 
     return (
         <div className="max-w-[90vw] mx-4 my-5 flex flex-col gap-2" >
-            {
-                label && (
-                    <label
-                        htmlFor={id}
-                        className="text-sm sm:text-lg"
-                    >
-                        {label}
-                    </label>
-                )
-            }
+            <div
+                className="flex flex-row justify-between items-center"
+            >
+                {
+                    label && (
+                        <label
+                            htmlFor={id}
+                            className={`text-sm sm:text-lg ${labelclasses}`}
+                        >
+                            {label}
+                        </label>
+                    )
+                }
+                {
+                    error && <ErrorMessage message={error.message} />
+                }
+            </div>
             <input
                 type={type}
                 id={id}
