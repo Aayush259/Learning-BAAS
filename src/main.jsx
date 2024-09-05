@@ -12,6 +12,7 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import PostPage from './pages/PostPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +48,12 @@ const router = createBrowserRouter(
       <Route path='/profile' element={
         <AuthLayout authentication={true}>
           <ProfilePage />
+        </AuthLayout>
+      } />
+
+      <Route path='/post/:slug' element={
+        <AuthLayout authentication={true}>
+          <PostPage />
         </AuthLayout>
       } />
     </Route>
