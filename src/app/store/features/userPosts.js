@@ -14,11 +14,11 @@ const userPostSlice = createSlice({
     initialState,
     reducers: {
         addPosts: add,
-        deletePost: del,
+        deleteUserPost: del,
         clearAllPostsFromStore: clearAll,
     }
 });
 
-export const { addPosts, deletePost, clearAllPostsFromStore } = userPostSlice.actions;
+export const { addPosts, deleteUserPost, clearAllPostsFromStore } = userPostSlice.actions;
 
 export default userPostSlice.reducer;

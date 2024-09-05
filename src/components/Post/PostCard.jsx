@@ -1,16 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import storageService from '../../app/services/storageService.js';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '../index.js';
 import databaseService from '../../app/services/databaseService.js';
+import { deleteUserPost as deletePostFromUser } from '../../app/store/features/userPosts.js';
+import { deleteUserPost as deletePostFromHome } from '../../app/store/features/homePosts.js';
 
 export default function PostCard({ post }) {
 
     // Getting user data from store.
     const userData = useSelector(state => state.auth.userData);
+
+    const dispatch = useDispatch();
 
     // Destructuring post data.
     const title = post.title;
@@ -21,10 +25,15 @@ export default function PostCard({ post }) {
     const deletePost = async (e) => {
         e.target.disable = true;
         try {
+            // Deleting post from database.
             if (post.featuredImage) {
                 await storageService.deleteFile(post.featuredImage);
             }
             await databaseService.deletePost(post.$id);
+
+            // Deleting post from store.
+            dispatch(deletePostFromUser(post.$id));
+            dispatch(deletePostFromHome(post.$id));
         } catch (error) {
             console.log(error);
         }
