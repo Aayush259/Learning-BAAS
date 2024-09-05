@@ -95,7 +95,10 @@ export default function CreatePost({ setCreatePost }) {
                 userId: userData.$id,
             });
 
-            if (post) navigate(`/post/${post.$id}`);
+            if (post) {
+                setCreatePost(false);
+                navigate(`/post/${post.$id}`);
+            }
         } catch (error) {
             console.log(error);
         }
