@@ -35,7 +35,6 @@ export default function ProfilePost({ userId }) {
                 loading && <Loader containerClasses="max-h-full" />
             }
 
-
             <div className="w-[1100px] max-w-[90%] mx-auto flex flex-row items-start justify-start gap-3 my-10 flex-wrap">
 
                 {
@@ -46,8 +45,8 @@ export default function ProfilePost({ userId }) {
 
                 {
                     !loading && userPosts?.length === 0 && (
-                        <div className="w-full h-full flex items-center justify-center">
-                            <p className="text-2xl text-gray-500">Create your first post.</p>
+                        <div className="w-full h-full flex items-center justify-center mt-14">
+                            <p className="text-2xl text-gray-500">Create your first post 😉.</p>
                         </div>
                     )
                 }
