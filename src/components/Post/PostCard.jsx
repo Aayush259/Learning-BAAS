@@ -8,6 +8,7 @@ import { Button } from '../index.js';
 import databaseService from '../../app/services/databaseService.js';
 import { deleteUserPost as deletePostFromUser } from '../../app/store/features/userPosts.js';
 import { deleteUserPost as deletePostFromHome } from '../../app/store/features/homePosts.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function PostCard({ post }) {
 
@@ -15,6 +16,7 @@ export default function PostCard({ post }) {
     const userData = useSelector(state => state.auth.userData);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Destructuring post data.
     const title = post.title;
@@ -44,6 +46,7 @@ export default function PostCard({ post }) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="m-4 rounded-xl overflow-hidden w-72 !bg-black border border-[#cbd5e11a] cursor-pointer select-none z-30"
+            onClick={() => navigate(`/post/${post.$id}`)}
         >
 
             {
@@ -66,13 +69,17 @@ export default function PostCard({ post }) {
                     <div className="w-fit ml-auto flex flex-row items-center justify-center gap-2 m-2">
                         <Button
                             className="h-8 !w-8 !rounded-full !m-2 flex items-center justify-center !bg-transparent !text-white hover:opacity-70 !p-0"
+                            onClick={e => e.stopPropagation()}
                         >
                             <EditIcon />
                         </Button>
 
                         <Button
                             className="h-8 !w-8 !rounded-full !m-2 flex items-center justify-center !bg-transparent !text-red-600 hover:opacity-70 !p-0"
-                            onClick={deletePost}
+                            onClick={e => {
+                                e.stopPropagation();
+                                deletePost(e)
+                            }}
                         >
                             <DeleteIcon />
                         </Button>
