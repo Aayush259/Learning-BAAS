@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import authService from './app/services/authService.js';
 import { login, logout } from './app/store/features/authSlice.js';
 import AddIcon from '@mui/icons-material/Add';
-import { AuthLayout, Button, CreatePost, Footer, Header, Loader } from './components/index.js';
+import { Button, CreatePost, Footer, Header, Loader } from './components/index.js';
 import { Outlet } from 'react-router-dom';
 
 export default function App() {
@@ -39,7 +39,7 @@ export default function App() {
         {isUserLoggedIn && createPost && <CreatePost setCreatePost={setCreatePost} />}
 
         {isUserLoggedIn && (<Button
-          className={`!h-10 !w-10 flex items-center justify-center !rounded-full scale-150 absolute bottom-10 right-10 hover:rotate-[130deg] z-50 ${createPost ? "hidden" : ""}`}
+          className={`!h-10 !w-10 flex items-center justify-center !rounded-full scale-150 fixed bottom-10 right-10 hover:rotate-[130deg] z-50 ${createPost ? "hidden" : ""}`}
           onClick={() => setCreatePost(true)}
         >
           <AddIcon />
