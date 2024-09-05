@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -112,8 +112,7 @@ export default function CreatePost({ setCreatePost }) {
                 className="bg-[#0f2138] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
 
                 <Button
-                    className={'w-fit p-0 flex items-center justify-center ml-auto hover:bg-transparent hover:text-slate-500'}
-                    bgColor='transparent'
+                    className={'w-fit p-0 flex items-center justify-center ml-auto !bg-transparent hover:text-slate-500'}
                     type='button'
                     onClick={() => setCreatePost(false)}
                 >
