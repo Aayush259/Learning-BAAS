@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Loader, PostCard } from '../index.js';
+import { useDispatch, useSelector } from 'react-redux';
 import databaseService from '../../app/services/databaseService';
+import { addPosts, clearAllPostsFromStore } from '../../app/store/features/userPosts.js';
+import { Loader, PostCard } from '../index.js';
 
 export default function ProfilePost({ userId }) {
+
+    // Getting user's posts from store.
+    const userPosts = useSelector(state => state.userPosts.posts);
+
+    const dispatch = useDispatch();
 
     // Loading state.
     const [loading, setLoading] = useState(true);
 
-    // State for all user's post.
-    const [posts, setPosts] = useState([]);
-
-    // Getting user's post.
     useEffect(() => {
+        // Getting user's posts from database.
         databaseService.getUserPosts(userId)
-            .then((posts) => {
-                setPosts(posts.documents);
-            })
+            .then(res => dispatch(addPosts(res.documents)))
             .catch((error) => {
                 console.log(error);
             })
             .finally(() => setLoading(false));
+
+        // Clearing posts from store on component unmount.
+        return () => {
+            dispatch(clearAllPostsFromStore());
+        }
     }, []);
 
     return (
@@ -32,9 +39,17 @@ export default function ProfilePost({ userId }) {
             <div className="w-[1100px] max-w-[90%] mx-auto flex flex-row items-start justify-start gap-3 my-10 flex-wrap">
 
                 {
-                    posts?.map((post) => (
+                    userPosts?.map((post) => (
                         <PostCard key={post.$id} post={post} />
                     ))
+                }
+
+                {
+                    !loading && userPosts?.length === 0 && (
+                        <div className="w-full h-full flex items-center justify-center">
+                            <p className="text-2xl text-gray-500">Create your first post.</p>
+                        </div>
+                    )
                 }
             </div>
         </>

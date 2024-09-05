@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import storageService from '../../app/services/storageService';
+import storageService from '../../app/services/storageService.js';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '../index.js';

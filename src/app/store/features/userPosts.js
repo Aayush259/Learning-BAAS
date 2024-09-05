@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
     addPosts as add,
     deletePost as del,
+    removeAllPostsFromStore as clearAll,
 } from '../reducers/postReducers';
 
 const initialState = {
@@ -14,9 +15,10 @@ const userPostSlice = createSlice({
     reducers: {
         addPosts: add,
         deletePost: del,
+        clearAllPostsFromStore: clearAll,
     }
 });
 
-export const { addPosts, deletePost } = userPostSlice.actions;
+export const { addPosts, deletePost, clearAllPostsFromStore } = userPostSlice.actions;
 
 export default userPostSlice.reducer;
