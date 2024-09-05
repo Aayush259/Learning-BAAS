@@ -63,15 +63,15 @@ export default function PostCard({ post }) {
 
             {
                 userData.$id === post.userId && (
-                    <div className="w-fit ml-auto flex flex-row items-center gap-2 m-2">
+                    <div className="w-fit ml-auto flex flex-row items-center justify-center gap-2 m-2">
                         <Button
-                            className="h-8 !w-8 !rounded-full m-0 flex items-center justify-center !bg-transparent !text-white hover:opacity-70"
+                            className="h-8 !w-8 !rounded-full !m-2 flex items-center justify-center !bg-transparent !text-white hover:opacity-70 !p-0"
                         >
                             <EditIcon />
                         </Button>
 
                         <Button
-                            className="h-8 !w-8 !rounded-full m-0 flex items-center justify-center !bg-transparent !text-red-600 hover:opacity-70"
+                            className="h-8 !w-8 !rounded-full !m-2 flex items-center justify-center !bg-transparent !text-red-600 hover:opacity-70 !p-0"
                             onClick={deletePost}
                         >
                             <DeleteIcon />

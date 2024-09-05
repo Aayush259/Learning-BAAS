@@ -44,13 +44,13 @@ function HomePage() {
                     ))
                 }
 
-                {!loading && (
+                {!loading && homePosts?.length !== 0 && (
                     <p className="absolute z-30 left-0 bottom-4 w-full text-center text-2xl text-gray-500">No more posts</p>
                 )}
 
                 {
                     !loading && homePosts?.length === 0 && (
-                        <div className="w-full h-full flex items-center justify-center">
+                        <div className="w-full h-full flex items-center justify-center mt-36">
                             <p className="text-2xl text-gray-500">No new posts found.</p>
                         </div>
                     )
