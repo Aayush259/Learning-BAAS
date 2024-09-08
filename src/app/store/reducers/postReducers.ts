@@ -1,17 +1,12 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-
-// Structure of post.
-interface Post {
-    $id: string;
-    [key: string]: any;
-}
+import { CreateUpdateGetPostResponseType } from '../../interfaces/interfaces';
 
 // Structure of state.
 interface State {
-    posts: Post[];
+    posts: CreateUpdateGetPostResponseType[];
 }
 
-const addPosts = (state: State, action: PayloadAction<Post[]>) => {
+const addPosts = (state: State, action: PayloadAction<CreateUpdateGetPostResponseType[]>) => {
     state.posts = state.posts.concat([...action.payload]);
 };
 
