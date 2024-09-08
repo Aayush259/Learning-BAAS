@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -6,6 +5,7 @@ import { login } from '../../app/store/features/authSlice';
 import authService from '../../app/services/authService';
 import LoginIcon from '@mui/icons-material/Login';
 import { Button, Input, Loader } from '../../components/index';
+import { useState } from 'react';
 
 export interface FormData {
     email: string,
@@ -18,18 +18,14 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // State to track error and loading.
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
+    // State for appwrite service error.
+    const [appwriteError, setAppwriteError] = useState<string | null>(null);
 
     // Getting register and handleSubmit function from useForm.
-    const { register, handleSubmit } = useForm<FormData>();
+    const { register, handleSubmit, formState: { isSubmitting, errors } } = useForm<FormData>();
 
     // Function to handle login.
     const handleLogin = async (data: FormData) => {
-        // Set loading true and error null.
-        setLoading(true);
-        setError(null);
 
         try {
             // Try to create a new session by login the user.
@@ -41,16 +37,15 @@ export default function Login() {
             // Set loading false, and navigate home page.
             navigate('home');
         } catch (error) {
-            setError((error as Error).message || 'An unexpected error occurred');
+            setAppwriteError((error as Error).message || 'An unexpected error occurred');
         }
-        setLoading(false);
     };
 
     return (
         <div
             className="min-h-[80vh] w-screen mx-auto my-4 flex items-center justify-center"
         >
-            {loading && <Loader />}
+            {isSubmitting && <Loader />}
             <div className="bg-[#cbd5e11a] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">
                 <h2 className="text-xl font-semibold flex items-center justify-center w-fit gap-2">
                     <LoginIcon />
@@ -60,8 +55,8 @@ export default function Login() {
                 <form onSubmit={handleSubmit(handleLogin)} className="mt-7 w-fit mx-auto">
 
                     {
-                        error && <p className="text-red-500 my-2">
-                            {error}
+                        appwriteError && <p className="text-red-500 my-2">
+                            {appwriteError}*
                         </p>
                     }
 
@@ -69,8 +64,9 @@ export default function Login() {
                         label="Email:"
                         placeholder="Enter your email"
                         type="email"
+                        error={errors.email}
                         {...register('email', {
-                            required: true,
+                            required: "Email is required",
                         })}
                     />
 
@@ -78,8 +74,9 @@ export default function Login() {
                         label="Password:"
                         placeholder="Enter your password"
                         type="password"
+                        error={errors.password}
                         {...register('password', {
-                            required: true,
+                            required: "Password is required",
                         })}
                     />
 
