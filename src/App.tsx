@@ -22,7 +22,7 @@ export default function App() {
 
   const dispatch = useDispatch();
 
-  const { data: userData, isFetching, isError } = useQuery({
+  const { data: userData, isFetching } = useQuery({
     queryKey: ['user'],
     queryFn: () => authService.getCurrentUser(),
   });
@@ -32,7 +32,6 @@ export default function App() {
   }, [userData]);
 
   if (isFetching) return <Loader />;
-  if (isError) return <div>Error...</div>
 
   return (
     <>
