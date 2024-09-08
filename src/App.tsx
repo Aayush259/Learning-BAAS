@@ -5,6 +5,7 @@ import { login, logout } from './app/store/features/authSlice.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Button, CreatePost, Header, Loader } from './components/index.js';
 import { Outlet } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 interface State {
   auth: {
@@ -14,8 +15,6 @@ interface State {
 
 export default function App() {
 
-  const [loading, setLoading] = useState(true);
-
   // State  to handle create post window.
   const [createPost, setCreatePost] = useState(false);
 
@@ -23,19 +22,19 @@ export default function App() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    authService.getCurrentUser()
-      .then((userData) => {
-        if (userData) {
-          dispatch(login({ userData }));
-        } else {
-          dispatch(logout());
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const { data: userData, isFetching, isError } = useQuery({
+    queryKey: ['user'],
+    queryFn: () => authService.getCurrentUser(),
+  });
 
-  return !loading ? (
+  useEffect(() => {
+    userData ? dispatch(login({ userData })) : dispatch(logout());
+  }, [userData]);
+
+  if (isFetching) return <Loader />;
+  if (isError) return <div>Error...</div>
+
+  return (
     <>
       <div className="bg-black text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
         <Header />
@@ -55,5 +54,5 @@ export default function App() {
 
       </div>
     </>
-  ) : <Loader />;
+  );
 };
