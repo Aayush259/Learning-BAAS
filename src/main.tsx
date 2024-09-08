@@ -1,10 +1,10 @@
-// import { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { Provider } from 'react-redux';
 import store from './app/store/store';
-// import { BackgroundBeamsWithCollision } from './components/ui/BackgroundBeamsWithCollision';
+import { BackgroundBeamsWithCollision } from './components/ui/BackgroundBeamsWithCollision';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { AuthLayout } from './components/index';
 import LandingPage from './pages/LandingPage';
@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import ProfilePage from './pages/ProfilePage';
 import PostPage from './pages/PostPage';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +27,9 @@ const router = createBrowserRouter(
 
       <Route path='/home' element={
         <AuthLayout authentication={true}>
-          <HomePage />
+          <div className="w-screen max-h-[80vh] overflow-y-auto overflow-x-hidden mx-auto py-10">
+            <HomePage />
+          </div>
         </AuthLayout>
       }
       />
@@ -60,12 +63,16 @@ const router = createBrowserRouter(
   )
 );
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
+  <StrictMode>
   <Provider store={store}>
-    {/* <BackgroundBeamsWithCollision> */}
-    <RouterProvider router={router} />
-    {/* </BackgroundBeamsWithCollision> */}
+    <BackgroundBeamsWithCollision>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+    </BackgroundBeamsWithCollision>
   </Provider>
-  // </StrictMode>,
+  </StrictMode>,
 );
