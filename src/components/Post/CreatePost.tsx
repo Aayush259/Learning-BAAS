@@ -10,14 +10,22 @@ import { Button, ErrorMessage, Input, Loader } from '../index';
 import { AuthState } from '../../interfaces';
 import { UploadPostType } from '../../app/interfaces/interfaces';
 
+interface CreatePostProps {
+    setCreatePost: (setVal: boolean) => void,
+    previousPost?: {
+        title: string,
+        content: string,
+    }
+}
+
 export interface FormData {
     title: string,
     content: string,
     slug: string,
-    featuredImage: FileList
+    featuredImage: FileList,
 }
 
-export default function CreatePost({ setCreatePost }: { setCreatePost: (set: boolean) => void }) {
+const CreatePost: React.FC<CreatePostProps> = ({ setCreatePost, previousPost }) => {
 
     const userData = useSelector((state: AuthState) => state.auth.userData);
     const navigate = useNavigate();
@@ -27,10 +35,13 @@ export default function CreatePost({ setCreatePost }: { setCreatePost: (set: boo
         handleSubmit,
         setError,
         formState: { errors, isSubmitting },
-    } = useForm<UploadPostType>();
+    } = useForm<UploadPostType>({defaultValues: {
+        title: previousPost?.title,
+        content: previousPost?.content,
+    }});
 
     // State for slug.
-    const [slug, setSlug] = useState('');
+    const [slug, setSlug] = useState("");
 
     // State to store the selected image file name.
     const [fileName, setFileName] = useState('');
@@ -209,7 +220,9 @@ export default function CreatePost({ setCreatePost }: { setCreatePost: (set: boo
                         bgColor='bg-yellow-300'
                         textColor='text-gray-900'
                     >
-                        Post
+                        {
+                            previousPost ? "Update Post" : "Create Post"
+                        }
                     </Button>
 
                 </form>
@@ -217,3 +230,5 @@ export default function CreatePost({ setCreatePost }: { setCreatePost: (set: boo
         </div>
     );
 };
+
+export default CreatePost;
