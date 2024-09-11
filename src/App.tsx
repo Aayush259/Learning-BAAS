@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { Outlet } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
 import authService from './app/services/authService.js';
 import { login, logout } from './app/store/features/authSlice.js';
-import AddIcon from '@mui/icons-material/Add';
+import { UrlLandingContextProvider } from './app/contexts/UrlLandingContext.js';
 import { Button, CreatePost, Header, Loader } from './components/index.js';
-import { Outlet } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 
 interface State {
   auth: {
@@ -38,7 +39,9 @@ export default function App() {
       <div className="bg-black text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
         <Header />
 
-        <Outlet />
+        <UrlLandingContextProvider>
+          <Outlet />
+        </UrlLandingContextProvider>
 
         {isUserLoggedIn && createPost && <CreatePost setCreatePost={setCreatePost} />}
 

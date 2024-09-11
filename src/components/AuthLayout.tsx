@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Loader from './Loader.jsx';
+import { useUrlLandingContext } from '../app/contexts/UrlLandingContext.js';
 
 export default function AuthLayout({
     children,
@@ -12,7 +13,12 @@ export default function AuthLayout({
 }) {
 
     const navigate = useNavigate();
+    const location = useLocation();
+
     const [loading, setLoading] = useState<boolean>(true);
+
+    // State to handle landing url.
+    const { URL, setLandingUrl } = useUrlLandingContext();
 
     // Get authentication status from Redux store
     const authStatus = useSelector((state: {
@@ -23,12 +29,21 @@ export default function AuthLayout({
 
     // Redirect logic based on authentication requirements and current status
     useEffect(() => {
+
+        // If URL is not present, and location is not login or signup of landing page, then set URL to the actual url.
+        if (!URL && (location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/')) setLandingUrl(location.pathname);
+
         if (authentication && authStatus !== authentication) {
             // Redirect to login if authentication is required but user is not authenticated
             navigate('/login');
         } else if (!authentication && authStatus !== authentication) {
-            // Redirect to home if authentication is not required but user is authenticated
-            navigate('/home');
+            // Redirect to user to the required page.
+            if (URL) {
+                navigate(URL);
+            } else {
+                navigate('/home');
+            }
+            setLandingUrl(null);
         }
         // Set loading to false after authentication check
         setLoading(false);
