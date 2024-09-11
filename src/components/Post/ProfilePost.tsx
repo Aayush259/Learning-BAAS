@@ -33,7 +33,7 @@ export default function ProfilePost({ userId }: { userId: string }) {
     return (
         <>
             {
-                loading && <Loader containerClasses="max-h-full" />
+                loading && <Loader containerClasses="max-h-full !bg-transparent" />
             }
 
             <div className="w-[1100px] max-w-[90%] mx-auto flex flex-row items-start justify-start gap-3 my-10 flex-wrap">

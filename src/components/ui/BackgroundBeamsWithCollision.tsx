@@ -2,10 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 
 export const BackgroundBeamsWithCollision = ({
-  children,
   className,
 }: {
-  children: React.ReactNode;
   className?: string;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,7 +65,7 @@ export const BackgroundBeamsWithCollision = ({
   return (
     <div
       ref={parentRef}
-      className={`h-96 md:h-[40rem] bg-gradient-to-b from-white to-neutral-100 dark:from-neutral-950 dark:to-neutral-800 relative flex items-center w-full justify-center overflow-hidden ${className}`}
+      className={`h-screen bg-gradient-to-b from-white to-neutral-100 dark:from-neutral-950 dark:to-neutral-800 fixed flex items-center w-full justify-center overflow-hidden ${className}`}
     >
       {beams.map((beam) => (
         <CollisionMechanism
@@ -77,8 +75,6 @@ export const BackgroundBeamsWithCollision = ({
           parentRef={parentRef}
         />
       ))}
-
-      {children}
       <div
         ref={containerRef}
         className="absolute bottom-0 bg-neutral-100 w-full inset-x-0 pointer-events-none"

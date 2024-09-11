@@ -43,7 +43,7 @@ export default function Login() {
 
     return (
         <div
-            className="min-h-[80vh] w-screen mx-auto my-4 flex items-center justify-center"
+            className="min-h-[80vh] w-screen mx-auto my-4 flex items-center justify-center relative"
         >
             {isSubmitting && <Loader />}
             <div className="bg-[#cbd5e11a] p-4 mx-auto w-[600px] max-w-[90vw] rounded-xl">

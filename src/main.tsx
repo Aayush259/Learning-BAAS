@@ -66,13 +66,12 @@ const router = createBrowserRouter(
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-  <Provider store={store}>
-    <BackgroundBeamsWithCollision>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-    </BackgroundBeamsWithCollision>
-  </Provider>
-  </StrictMode>,
+  // <StrictMode>
+    <Provider store={store}>
+      <BackgroundBeamsWithCollision />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Provider>
+  // </StrictMode>,
 );

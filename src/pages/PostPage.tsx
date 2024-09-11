@@ -26,11 +26,11 @@ export default function PostPage() {
             >
                 <ArrowBackIosIcon className="ml-2" />
             </Button>
-            <div className="min-h-[70vh] flex items-start justify-center w-[1100px] max-w-[90%] mx-auto gap-3 pb-10 my-14">
 
-                {
-                    isFetching && <Loader containerClasses="!h-full" />
-                }
+            {
+                isFetching && <Loader />
+            }
+            <div className="min-h-[70vh] flex items-start justify-center w-[1100px] max-w-[90%] mx-auto gap-3 pb-10 my-14 relative">
 
                 {
                     isError && <div>Error...</div>

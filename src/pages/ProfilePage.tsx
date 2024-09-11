@@ -22,7 +22,7 @@ export default function ProfilePage() {
     };
 
     return (
-        <div className="w-screen max-h-[80vh] overflow-y-auto overflow-x-hidden mx-auto py-10">
+        <div className="w-screen max-h-[80vh] overflow-y-auto overflow-x-hidden mx-auto py-10 relative">
             <div
                 className="w-[1100px] max-w-[90%] mx-auto"
             >
