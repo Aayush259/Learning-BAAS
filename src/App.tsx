@@ -39,9 +39,11 @@ export default function App() {
       <div className="bg-black text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
         <Header />
 
-        <UrlLandingContextProvider>
-          <Outlet />
-        </UrlLandingContextProvider>
+        <div className="mt-16">
+          <UrlLandingContextProvider>
+            <Outlet />
+          </UrlLandingContextProvider>
+        </div>
 
         {isUserLoggedIn && createPost && <CreatePost setCreatePost={setCreatePost} />}
 
