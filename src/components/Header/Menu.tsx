@@ -28,23 +28,14 @@ export const MenuItem = ({
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
       >
-        <motion.span
-          initial={{ rotate: 0, y: 0 }}
-          animate={active ? { rotate: 45, y: 10 } : { rotate: 0, y: 0 }}
-          transition={transition}
-          className="w-8 sm:w-10 h-1 bg-white block rounded"
+        <span
+          className={`w-6 h-[2px] sm:w-10 sm:h-1 bg-white block rounded duration-200 ${active ? "rotate-45 translate-y-[4px] sm:translate-y-[10px]" : "rotate-0 translate-y-0"}`}
         />
-        <motion.span
-          initial={{ opacity: 1 }}
-          animate={active ? { opacity: 0 } : { opacity: 1 }}
-          transition={transition}
-          className="w-8 sm:w-10 h-1 bg-white block rounded my-2"
+        <span
+          className={`w-6 h-[2px] sm:w-10 sm:h-1 bg-white block rounded my-[5px] sm:my-2 duration-200 ${active ? "opacity-0" : "opacity-100"}`}
         />
-        <motion.span
-          initial={{ rotate: 0, y: 0 }}
-          animate={active ? { rotate: -45, y: -13 } : { rotate: 0, y: 0 }}
-          transition={transition}
-          className="w-8 sm:w-10 h-1 bg-white block rounded"
+        <span
+          className={`w-6 h-[2px] sm:w-10 sm:h-1 bg-white block rounded duration-200 ${active ? "-rotate-45 -translate-y-[10px] sm:-translate-y-[13px]" : "rotate-0 translate-y-0"}`}
         />
       </motion.p>
       {active !== null && (
