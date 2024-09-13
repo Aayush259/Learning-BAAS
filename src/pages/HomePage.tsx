@@ -24,7 +24,10 @@ function HomePage() {
                 }
 
                 {homePosts?.documents.length && (
-                    <p className="absolute z-30 left-0 bottom-4 w-full text-center text-2xl text-gray-500">No more posts</p>
+                    <p className="z-30 w-full text-center text-2xl text-gray-500">No more posts
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos numquam molestiae consequuntur est, et ratione rerum voluptas iure nisi ex.
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt, illum iusto! Nam porro explicabo, tenetur enim nostrum molestias id totam at aspernatur, doloremque libero debitis cum, animi dolorum? Doloribus, amet excepturi, facilis perferendis ipsum minima facere iste veritatis inventore iusto quos voluptate magnam aliquid error saepe commodi temporibus et. Quibusdam maxime sapiente a excepturi iusto esse ducimus, dolorum suscipit quaerat vitae veritatis unde asperiores! Aperiam perspiciatis placeat nam eligendi incidunt reprehenderit natus deserunt inventore quidem eaque error nihil, minima doloribus, quo ab eveniet animi numquam id nemo. Inventore praesentium consequatur doloremque molestias soluta unde earum, dolorum mollitia laborum dolor nostrum.
+                    </p>
                 )}
 
                 {
