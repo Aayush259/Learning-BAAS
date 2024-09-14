@@ -1,4 +1,4 @@
-// import { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
@@ -27,7 +27,7 @@ const router = createBrowserRouter(
 
       <Route path='/home' element={
         <AuthLayout authentication={true}>
-          <div className="w-screen h-screen overflow-y-auto overflow-x-hidden mx-auto py-10">
+          <div className="w-screen overflow-y-auto overflow-x-hidden mx-auto py-10">
             <HomePage />
           </div>
         </AuthLayout>

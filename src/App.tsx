@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <>
-      <div className="bg-black text-white min-h-screen w-screen overflow-x-hidden overflow-y-auto">
+      <div className="bg-black text-white min-h-screen w-screen">
         <Header />
 
         <div className="mt-16">
