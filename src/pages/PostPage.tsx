@@ -38,9 +38,9 @@ export default function PostPage() {
 
                 {
                     post && (
-                        <div className="w-full flex flex-row justify-center items-start gap-8">
+                        <div className="w-full flex md:flex-row flex-col justify-center items-start gap-8">
                             {post.featuredImage && post.featuredImage !== '' && (
-                                <div className="w-1/2 max-w-fit flex items-center justify-center">
+                                <div className="w-full md:w-1/2 max-w-fit flex items-center justify-center">
                                     <img
                                         src={storageService.getFilePreview(post.featuredImage).toString()}
                                         alt="post-image"
