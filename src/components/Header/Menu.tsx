@@ -26,7 +26,7 @@ export const MenuItem = ({
     <div onClick={() => setActive(prevItem => prevItem === item ? null : item)} className="relative sm:mx-8">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+        className="cursor-pointer hover:opacity-[0.9] text-white"
       >
         <span
           className={`w-6 h-[2px] sm:w-10 sm:h-1 bg-white block rounded duration-200 ${active ? "rotate-45 translate-y-[4px] sm:translate-y-[10px]" : "rotate-0 translate-y-0"}`}
@@ -49,7 +49,7 @@ export const MenuItem = ({
               <motion.div
                 transition={transition}
                 layoutId="active"
-                className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
+                className="bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.2] shadow-xl"
               >
                 <motion.div
                   layout
@@ -93,7 +93,7 @@ export const HoveredLink = ({
   return (
     <Link
       to={link}
-      className="text-neutral-700 dark:text-neutral-200 w-full hover:bg-white hover:text-black duration-500 rounded-sm py-1 px-2"
+      className="text-neutral-200 w-full hover:opacity-85 duration-500 rounded-sm py-1 px-2"
       {...rest}
     >
       {children}

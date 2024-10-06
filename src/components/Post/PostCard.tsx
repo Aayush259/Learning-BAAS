@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import storageService from '../../app/services/storageService';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '../index';
 import databaseService from '../../app/services/databaseService';
 import { deleteUserPost as deletePostFromUser } from '../../app/store/features/userPosts';
@@ -71,12 +71,12 @@ export default function PostCard({
             {
                 userData.$id === post.userId && (
                     <div className="w-fit ml-auto flex flex-row items-center justify-center gap-2 m-2">
-                        <Button
+                        {/* <Button
                             className="h-8 !w-8 !rounded-full !m-2 flex items-center justify-center !bg-transparent !text-white hover:opacity-70 !p-0"
                             onClick={e => e.stopPropagation()}
                         >
                             <EditIcon />
-                        </Button>
+                        </Button> */}
 
                         <Button
                             className="h-8 !w-8 !rounded-full !m-2 flex items-center justify-center !bg-transparent !text-red-600 hover:opacity-70 !p-0"

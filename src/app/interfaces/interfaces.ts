@@ -29,9 +29,9 @@ export interface CreatePostType {
 }
 
 export interface UpdatePostType {
-    title: string;
-    content: string;
-    featuredImage: string | undefined;
+    title?: string;
+    content?: string;
+    featuredImage?: string | undefined;
 }
 
 export interface UploadPostType {

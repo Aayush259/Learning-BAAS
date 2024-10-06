@@ -65,7 +65,7 @@ export const BackgroundBeamsWithCollision = ({
   return (
     <div
       ref={parentRef}
-      className={`h-screen bg-gradient-to-b from-white to-neutral-100 dark:from-neutral-950 dark:to-neutral-800 fixed flex items-center w-full justify-center overflow-hidden ${className}`}
+      className={`h-screen bg-gradient-to-b from-neutral-950 to-neutral-800 fixed flex items-center w-full justify-center overflow-hidden ${className}`}
     >
       {beams.map((beam) => (
         <CollisionMechanism
